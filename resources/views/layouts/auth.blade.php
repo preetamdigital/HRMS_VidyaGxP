@@ -7,7 +7,7 @@
         <title>{{ucfirst(config('app.name'))}} - {{ucfirst($title)}}</title>
 		
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{!empty(app(App\Settings\ThemeSettings::class)->favicon) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->favicon):asset('assets/img/favicon.png')}}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{!empty(app(App\Settings\ThemeSettings::class)->favicon) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->favicon):asset('assets/img/mainlogo.png')}} ">
 		
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
@@ -29,12 +29,12 @@
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
 			<div class="account-content">
-				<a href="{{route('job-list')}}" class="btn btn-primary apply-btn">Apply Job</a>
+				<!-- <a href="{{route('job-list')}}" class="btn btn-primary apply-btn">Apply Job</a> -->
 				<div class="container">
 				
 					<!-- Account Logo -->
 					<div class="account-logo">
-						<a href=""><img src="{{!empty(app(App\Settings\ThemeSettings::class)->logo) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->logo):asset('assets/img/logo.png')}}" alt="logo"></a>
+						<a href=""><img src="{{!empty(app(App\Settings\ThemeSettings::class)->logo) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->logo):asset('assets/img/mainlogo.png')}}" alt="logo" width="" height="80"></a>
 					</div>
 					<!-- /Account Logo -->
 					
