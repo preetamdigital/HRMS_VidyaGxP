@@ -247,12 +247,12 @@ class ComposerStaticInit936540e55d27b60089a95917833065b1
         ),
         'Yajra\\DataTables\\' => 
         array (
-            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
-            1 => __DIR__ . '/..' . '/yajra/laravel-datatables-html/src',
-            2 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
-            3 => __DIR__ . '/..' . '/yajra/laravel-datatables-editor/src',
-            4 => __DIR__ . '/..' . '/yajra/laravel-datatables-fractal/src',
-            5 => __DIR__ . '/..' . '/yajra/laravel-datatables-export/src',
+            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
+            1 => __DIR__ . '/..' . '/yajra/laravel-datatables-editor/src',
+            2 => __DIR__ . '/..' . '/yajra/laravel-datatables-export/src',
+            3 => __DIR__ . '/..' . '/yajra/laravel-datatables-fractal/src',
+            4 => __DIR__ . '/..' . '/yajra/laravel-datatables-html/src',
+            5 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
         'Whoops\\' => 
         array (
@@ -452,8 +452,8 @@ class ComposerStaticInit936540e55d27b60089a95917833065b1
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
