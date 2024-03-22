@@ -97,14 +97,16 @@
                             <span class="d-block">New Employees</span>
                         </div>
                         <div>
-                            <span class="text-success">+10%</span>
+                            <!-- <span class="text-success">+10%</span> -->
                         </div>
                     </div>
                     <h3 class="mb-3">0</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p class="mb-0">Overall Employees 218</p>
+                    <!-- <p class="mb-0">Overall Employees 218</p> -->
+                    <p class="mb-0">Overall Employees 0</p>
+
                 </div>
             </div>
         
@@ -115,14 +117,15 @@
                             <span class="d-block">Earnings</span>
                         </div>
                         <div>
-                            <span class="text-success">+12.5%</span>
+                            <!-- <span class="text-success">+12.5%</span> -->
                         </div>
                     </div>
                     <h3 class="mb-3">$0</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p class="mb-0">Previous Month <span class="text-muted">$1,15,852</span></p>
+                    <p class="mb-0">Previous Month 
+                        <!-- <span class="text-muted">$1,15,852</span></p> -->
                 </div>
             </div>
         
@@ -133,15 +136,18 @@
                             <span class="d-block">Expenses</span>
                         </div>
                         <div>
-                            <span class="text-danger">-2.8%</span>
+                            <!-- <span class="text-danger">-2.8%</span> -->
                         </div>
                     </div>
                     <h3 class="mb-3">$0</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p class="mb-0">Previous Month <span class="text-muted">$7,500</span></p>
-                </div>
+                    <p class="mb-0">Previous Month 
+                        <!-- <span class="text-muted">$7,500</span></p> -->
+                        <span class="text-muted">$0</span></p>
+
+                    </div>
             </div>
         
             <div class="card">
@@ -151,12 +157,12 @@
                             <span class="d-block">Profit</span>
                         </div>
                         <div>
-                            <span class="text-danger">-75%</span>
+                            <!-- <span class="text-danger">-75%</span> -->
                         </div>
                     </div>
                     <h3 class="mb-3">$0</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <p class="mb-0">Previous Month <span class="text-muted">$0</span></p>
                 </div>
@@ -175,31 +181,31 @@
                     <div class="stats-info">
                         <p>Today Leave <strong>4 <small>/ 65</small></strong></p>
                         <div class="progress">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 31%" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="stats-info">
                         <p>Pending Invoice <strong>15 <small>/ 92</small></strong></p>
                         <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 31%" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="stats-info">
                         <p>Completed Projects <strong>85 <small>/ 112</small></strong></p>
                         <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="stats-info">
                         <p>Open Tickets <strong>190 <small>/ 212</small></strong></p>
                         <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="stats-info">
                         <p>Closed Tickets <strong>22 <small>/ 212</small></strong></p>
                         <div class="progress">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 22%" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
