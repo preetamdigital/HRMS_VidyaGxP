@@ -28,7 +28,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-sm-6 m-b-20">
-						<img src="{{!empty(app(App\Settings\InvoiceSettings::class)->logo) ? asset('storage/settings/'.app(App\Settings\InvoiceSettings::class)->logo):asset('assets/img/logo2.png')}}" class="inv-logo" alt="logo">
+						<img src="{{!empty(app(App\Settings\InvoiceSettings::class)->logo) ? asset('storage/settings/'.app(App\Settings\InvoiceSettings::class)->logo):asset('assets/img/vidhyagxp.png')}}" class="inv-logo" alt="logo">
 						 <ul class="list-unstyled">
 							<li>{{app(App\Settings\CompanySettings::class)->company_name}}</li>
 							<li>{{app(App\Settings\CompanySettings::class)->address}}</li>

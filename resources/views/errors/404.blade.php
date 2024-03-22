@@ -7,7 +7,7 @@
         <title>Error 404 - {{ucfirst(config('app.name'))}}</title>
 		
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/img/favicon.png')}}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/img/logovidyagxp')}}">
 		
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">

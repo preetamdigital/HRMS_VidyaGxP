@@ -23,7 +23,7 @@
             <div class="card-body">
                 <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                 <div class="dash-widget-info">
-                    <h3>112</h3>
+                    <h3>0</h3>
                     <span>Projects</span>
                 </div>
             </div>
@@ -45,7 +45,7 @@
             <div class="card-body">
                 <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
                 <div class="dash-widget-info">
-                    <h3>37</h3>
+                    <h3>0</h3>
                     <span>Tasks</span>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                             <span class="text-success">+10%</span>
                         </div>
                     </div>
-                    <h3 class="mb-3">10</h3>
+                    <h3 class="mb-3">0</h3>
                     <div class="progress mb-2" style="height: 5px;">
                         <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>

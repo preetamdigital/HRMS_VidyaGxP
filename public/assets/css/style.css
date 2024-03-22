@@ -1121,11 +1121,11 @@ table.dataTable thead > tr > td.sorting {
 -----------------------*/
 
 .header {
-	background: #ff9b44;
-	background: -moz-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
+	 background: #bbbbba;
+	/*background: -moz-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
 	background: -webkit-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
 	background: -ms-linear-gradient(left, #ff9b44 0%, #fc6075 100%);
-	background: linear-gradient(to right, #ff9b44 0%, #fc6075 100%);
+	background: linear-gradient(to right, #ff9b44 0%, #fc6075 100%); */
 	border-bottom: 1px solid transparent;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
 	height: 60px;
@@ -1224,7 +1224,7 @@ table.dataTable thead > tr > td.sorting {
     z-index: 99;
 }
 .user-menu.nav > li > a {
-	color: #fff;
+	color: #161616;
 	font-size: 15px;
 	line-height: 60px;
 	padding: 0 15px;
