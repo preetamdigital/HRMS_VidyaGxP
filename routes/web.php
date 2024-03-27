@@ -166,7 +166,10 @@ Route::group(['middleware'=>['auth']], function (){
 
     Route::get('tasks',[TaskController::class,'index'])->name('task');
     Route::post('tasks/add',[TaskController::class,'store'])->name('task.add');
-    
+    Route::get('task-list',[TaskController::class,'lists'])->name('task-list');
+    Route::delete('tasks',[TaskController::class,'destroy'])->name('task.destroy');
+    Route::put('tasks/update',[TaskController::class,'update'])->name('task.update');
+
     Route::get('projects',[ProjectController::class,'index'])->name('projects');
     Route::get('projects/show/{name}',[ProjectController::class,'show'])->name('project.show');
     Route::post('projects',[ProjectController::class,'store']);

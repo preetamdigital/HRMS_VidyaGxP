@@ -15,9 +15,9 @@ class TaskController extends Controller
     public function index()
     {
         $title = 'TaskHRMS';
-        $projects = Task::latest()->get();
+        $tasks = Task::latest()->get();
         return view('backend.Task.index',compact(
-            'title','projects'
+            'title','tasks'
         ));
     }
 
@@ -28,15 +28,17 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function lists()
     {
         $title = 'projects';
-        $projects = Task::latest()->get();
-        return view('backend.projects.list',compact(
-            'title','projects'
+        $tasks = Task::get();
+        return view('backend.Task.task-list',compact(
+            'title','tasks'
         ));
     }
 
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -119,43 +121,32 @@ class TaskController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'client' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'rate' => 'required',
-            'rate_type' => 'required',
-            'priority' => 'required',
-            'leader' => 'required',
-            'team' => 'required',
-            'description' => 'required',
-            'project_files' => 'nullable'
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'image'=>'file|image|mimes:jpg,jpeg,gif',
+      
         ]); 
-        $project = Task::findOrfail($request->id);
-        $files = $project->files;
-        if($request->hasFile('project_files')){
-            $files = array();
-            foreach($request->project_files as $file){
-                $fileName = time().'.'.$file->extension();
-                $file->move(public_path('storage/projects/'), $fileName);
-                array_push($files,$fileName);
-            }
+        
+        
+
+        $imageName = null;
+        if($request->image != null){
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('storage/tasks'), $imageName);
         }
-        $project->update([
-            'name' => $request->name,
-            'client_id' => $request->client,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'rate' => $request->rate,
-            'rate_type' => $request->rate_type,
-            'priority' => $request->priority,
-            'leader' => $request->leader,
-            'team' => $request->team,
-            'description' => $request->description,
-            'files' => $files,
-            'progress' => $request->progress,
+       $task =Task::findorfail($request->id);
+        
+        $task->update([
+             'firstname'=>$request->firstname,
+             'lastname'=>$request->lastname,
+             'email'=>$request->email,
+             'phone'=>$request->phone,
+             'image'=>$imageName,
+             'company'=>$request->company
         ]);
-        $notification = notify('project has been updated');
+        $notification = notify('task has been updated');
         return back()->with($notification);
     }
 
