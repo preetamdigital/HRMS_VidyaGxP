@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\EmployeeController;
@@ -57,6 +58,8 @@ Route::group(['middleware'=>['guest']], function (){
     Route::post('forgot-password',[ForgotPasswordController::class,'reset']);
 
 });
+
+
 
 Route::get('job-list',[JobController::class,'index'])->name('job-list');
 Route::get('job-view/{job}',[JobController::class,'show'])->name('job-view');
@@ -160,6 +163,10 @@ Route::group(['middleware'=>['auth']], function (){
     Route::put('overtime',[OvertimeController::class,'update']);
     Route::delete('overtime',[OvertimeController::class,'destroy']);
 
+
+    Route::get('tasks',[TaskController::class,'index'])->name('task');
+    Route::post('tasks',[TaskController::class,'store'])->name('add');
+    
     Route::get('projects',[ProjectController::class,'index'])->name('projects');
     Route::get('projects/show/{name}',[ProjectController::class,'show'])->name('project.show');
     Route::post('projects',[ProjectController::class,'store']);

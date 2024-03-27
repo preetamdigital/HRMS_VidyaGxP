@@ -1,26 +1,27 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProjectController extends Controller
+class TaskController extends Controller
 {
-    /**
+       /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $title = 'projects';
-        $projects = Project::latest()->get();
-        return view('backend.projects.index',compact(
+        $title = 'TaskHRMS';
+        $projects = Task::latest()->get();
+        return view('backend.Task.index',compact(
             'title','projects'
         ));
     }
+
+
 
     /**
      * Display a listing of the resource.
@@ -30,7 +31,7 @@ class ProjectController extends Controller
     public function list()
     {
         $title = 'projects';
-        $projects = Project::latest()->get();
+        $projects = Task::latest()->get();
         return view('backend.projects.list',compact(
             'title','projects'
         ));
@@ -43,7 +44,7 @@ class ProjectController extends Controller
      */
     public function leads(){
         $title = 'project leads';
-        $projects = Project::get();
+        $projects = Task::get();
         return view('backend.projects.leads',compact(
             'title','projects'
         ));
@@ -58,24 +59,19 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'client' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'rate' => 'required',
-            'rate_type' => 'required',
-            'priority' => 'required',
-            'leader' => 'required',
-            'team' => 'required',
-            'description' => 'required',
-            'project_files' => 'nullable'
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'email'=>'required|email',
+            'phone'=>'nullable|max:15',
+            'image'=>'file|image|mimes:jpg,jpeg,png,gif',
+      
         ]); 
         $files = null;
-        if($request->hasFile('project_files')){
+        if($request->hasFile('image')){
             $files = array();
-            foreach($request->project_files as $file){
+            foreach($request->image as $file){
                 $fileName = time().'.'.$file->extension();
-                $file->move(public_path('storage/projects/'.$request->name), $fileName);
+                $file->move(public_path('storage/tasks/'.$request->name), $fileName);
                 array_push($files,$fileName);
             }
         }
@@ -86,24 +82,17 @@ class ProjectController extends Controller
         //     $request->avatar->move(public_path('storage/clients'), $imageName);
         // }
       
-        Project::create([
-            'name' => $request->name,
-            'client_id' => $request->client,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'rate' => $request->rate,
-            'rate_type' => $request->rate_type,
-            'priority' => $request->priority,
-            'leader' => $request->leader,
-            'team' => $request->team,
-            'description' => $request->description,
-            'files' => $files,
-            'progress' => $request->progress,
-        ]);
-        $notification = notify('project has been added');
-        return back()->with($notification);
+        Task::create([
+            'firstname'=>$request->firstname,
+            'lastname'=>$request->lastname,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'company'=>$request->company,
+            'image' => $files,
+                ]);
+                $notification = notify('task has been added');
+                return back()->with($notification);
     }
-
     /**
      * Display the specified resource.
      *
@@ -113,7 +102,7 @@ class ProjectController extends Controller
     public function show($project_name)
     {
         $title = 'view project';
-        $project = Project::where('name','=',$project_name)->firstOrFail();
+        $project = Task::where('name','=',$project_name)->firstOrFail();
         return view('backend.projects.show',compact(
             'title','project'
         ));
@@ -143,7 +132,7 @@ class ProjectController extends Controller
             'description' => 'required',
             'project_files' => 'nullable'
         ]); 
-        $project = Project::findOrfail($request->id);
+        $project = Task::findOrfail($request->id);
         $files = $project->files;
         if($request->hasFile('project_files')){
             $files = array();
@@ -179,8 +168,9 @@ class ProjectController extends Controller
      */
     public function destroy(Request $request)
     {
-        Project::findOrfail($request->id)->delete();
+        Task::findOrfail($request->id)->delete();
         $notification = notify('project has been added');
         return back()->with($notification);
     }
+
 }

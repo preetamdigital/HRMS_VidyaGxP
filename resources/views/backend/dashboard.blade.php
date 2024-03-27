@@ -23,7 +23,7 @@
             <div class="card-body">
                 <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                 <div class="dash-widget-info">
-                    <h3>0</h3>
+                    <h3>{{$project_count}}</h3>
                     <span>Projects</span>
                 </div>
             </div>
@@ -97,14 +97,14 @@
                             <span class="d-block">New Employees</span>
                         </div>
                         <div>
-                            <!-- <span class="text-success">+10%</span> -->
+                            <span class="text-success">+10%</span>
                         </div>
                     </div>
                     <h3 class="mb-3">0</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 20%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <!-- <p class="mb-0">Overall Employees 218</p> -->
+                    <p class="mb-0">Overall Employees 218</p>
                     <p class="mb-0">Overall Employees 0</p>
 
                 </div>
