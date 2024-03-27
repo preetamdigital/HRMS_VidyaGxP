@@ -34,7 +34,7 @@
 				
 					<!-- Account Logo -->
 					<div class="account-logo">
-z						<a href=""><img src="{{!empty(app(App\Settings\ThemeSettings::class)->logo) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->logo):asset('assets/img/logovidyagxp.png')}}" alt="logo" width="" height="80"></a>
+						<a href=""><img src="{{!empty(app(App\Settings\ThemeSettings::class)->logo) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->logo):asset('assets/img/logovidyagxp.png')}}" alt="logo" width="" height="80"></a>
 					</div>
 					<!-- /Account Logo -->
 					

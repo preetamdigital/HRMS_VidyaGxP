@@ -54,6 +54,9 @@
                     <a href="{{route('tickets')}}"><i class="la la-ticket"></i> <span>Tickets</span></a>
                 </li>
 
+                <li class="{{route_is('task') ? 'active' : '' }}">
+                    <a href="{{route('task')}}"><i class="la la-files-o"></i> <span>Tasks</span></a>
+                </li>
                 <li class="menu-title">
                     <span>HR</span>
                 </li>
