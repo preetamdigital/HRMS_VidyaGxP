@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->id();$table->string('firstname');
+            $table->id();
+            $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
             $table->string('phone');
@@ -21,6 +22,8 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        
     }
 
     /**

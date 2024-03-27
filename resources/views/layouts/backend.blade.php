@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <meta name="robots" content="noindex, nofollow">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ucfirst(config('app.name'))}} - {{ucfirst($title)}}</title>
+<title>{{ucfirst(config('app.name'))}} - {{ucfirst($title)}}</title>
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{!empty(app(App\Settings\ThemeSettings::class)->favicon) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->favicon):asset('assets/img/logovidyagxp.png')}}">
 		<!-- Bootstrap CSS -->

@@ -5,6 +5,7 @@ use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\Admin\GoalController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AssetController;
 use App\Http\Controllers\Admin\TaxesController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -17,7 +18,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\TaskController;
+
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\EmployeeController;
@@ -140,6 +141,14 @@ Route::group(['middleware'=>['auth']], function (){
     Route::put('clients',[ClientController::class,'update'])->name('client.update');
     Route::delete('clients',[ClientController::class,'destroy'])->name('client.destroy');
     Route::get('clients-list',[ClientController::class,'lists'])->name('clients-list');
+
+
+    //Task controller
+    Route::post('tasks',[TaskController::class,'index'])->name('tasks');
+     Route::post('tasks',[TaskController::class,'store'])->name('client.add');
+    // Route::put('clients',[ClientController::class,'update'])->name('client.update');
+    // Route::delete('clients',[ClientController::class,'destroy'])->name('client.destroy');
+     Route::get('tasks-list',[TaskController::class,'show'])->name('tasks-show');
 
     Route::get('employees',[EmployeeController::class,'index'])->name('employees');
     Route::post('employees',[EmployeeController::class,'store'])->name('employee.add');

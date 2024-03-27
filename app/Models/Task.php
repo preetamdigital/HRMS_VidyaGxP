@@ -11,8 +11,8 @@ class Task extends Model
     
 
     protected $fillable=[
-        'firstname','lastname','email',
-        'phone','image','company',
+        'task_name','task_description','',
+        'task_deadline','task_priority',
     ];
 
 }

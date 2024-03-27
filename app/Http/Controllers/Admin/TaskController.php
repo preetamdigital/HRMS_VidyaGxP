@@ -61,11 +61,10 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'email'=>'required|email',
-            'phone'=>'nullable|max:15',
-            'image'=>'file|image|mimes:jpg,jpeg,png,gif',
+            'task_name'=>'required',
+            'task_description'=>'required',
+            'task_deadline'=>'required',
+            'task_priority'=>'required',
       
         ]); 
         // $files = null;
@@ -85,12 +84,12 @@ class TaskController extends Controller
         }
       
         Task::create([
-            'firstname'=>$request->firstname,
-            'lastname'=>$request->lastname,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'company'=>$request->company,
-            'image' => $imageName,
+            'task_name'=>$request->task_name,
+            'task_description'=>$request->task_description,
+            'task_deadline'=>$request->task_deadline,
+            'task_priority'=>$request->task_priority,
+            // 'company'=>$request->company,
+            // 'image' => $files,
                 ]);
                 return back()->with('success','Task has been added successfully!!!');
     }
@@ -100,13 +99,17 @@ class TaskController extends Controller
      * @param  string  $project_name
      * @return \Illuminate\Http\Response
      */
-    public function show($project_name)
+    public function show()
     {
-        $title = 'view project';
-        $project = Task::where('name','=',$project_name)->firstOrFail();
-        return view('backend.projects.show',compact(
-            'title','project'
-        ));
+       $title = 'view project';
+        // $project = Task::where('name','=',$project_name)->firstOrFail();
+        // return view('backend.tasks.show',compact(
+        //     'title','project'
+        // ));
+
+        $tasks = Task::get();
+        //dd($tasks);
+        return view('backend.Task.show', ['tasks' => $tasks,'title'=>$title]);
     }
 
     
