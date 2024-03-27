@@ -66,21 +66,21 @@ class TaskController extends Controller
             'image'=>'file|image|mimes:jpg,jpeg,png,gif',
       
         ]); 
-        $files = null;
-        if($request->hasFile('image')){
-            $files = array();
-            foreach($request->image as $file){
-                $fileName = time().'.'.$file->extension();
-                $file->move(public_path('storage/tasks/'.$request->name), $fileName);
-                array_push($files,$fileName);
-            }
-        }
-
-        // $imageName = null;
-        // if($request->avatar != null){
-        //     $imageName = time().'.'.$request->avatar->extension();
-        //     $request->avatar->move(public_path('storage/clients'), $imageName);
+        // $files = null;
+        // if($request->hasFile('image')){
+        //     $files = array();
+        //     foreach($request->image as $file){
+        //         $fileName = time().'.'.$file->extension();
+        //         $file->move(public_path('storage/tasks/'.$request->name), $fileName);
+        //         array_push($files,$fileName);
+        //     }
         // }
+
+        $imageName = null;
+        if($request->image != null){
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('storage/tasks'), $imageName);
+        }
       
         Task::create([
             'firstname'=>$request->firstname,
@@ -88,10 +88,9 @@ class TaskController extends Controller
             'email'=>$request->email,
             'phone'=>$request->phone,
             'company'=>$request->company,
-            'image' => $files,
+            'image' => $imageName,
                 ]);
-                $notification = notify('task has been added');
-                return back()->with($notification);
+                return back()->with('success','Task has been added successfully!!!');
     }
     /**
      * Display the specified resource.
