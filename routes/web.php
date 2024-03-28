@@ -38,6 +38,7 @@ use App\Http\Controllers\Frontend\JobApplicationController;
 use App\Http\Controllers\Admin\EmployeeAttendanceController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\JobController as BackendJobController;
+use App\Http\Controllers\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,12 @@ Route::group(['middleware'=>['auth']], function (){
     Route::post('designations',[DesignationController::class,'store']);
     Route::delete('designations',[DesignationController::class,'destroy'])->name('designation.destroy');
 
+
+    Route::get('/dynamic-data', 'ChartController@fetchDynamicData')->name('dynamic.data');
+
+
+
+
     // settings routes
     Route::get('settings/theme',[SettingsController::class,'index'])->name('settings.theme');
     Route::post('settings/theme',[SettingsController::class,'updateTheme']);
@@ -143,10 +150,20 @@ Route::group(['middleware'=>['auth']], function (){
     Route::get('clients-list',[ClientController::class,'lists'])->name('clients-list');
 
 
+    
+
+    Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
+    
+
+
+
+
+
+
     //Task controller
     Route::post('tasks',[TaskController::class,'index'])->name('tasks');
-     Route::post('tasks',[TaskController::class,'store'])->name('client.add');
-    // Route::put('clients',[ClientController::class,'update'])->name('client.update');
+     Route::post('tasks',[TaskController::class,'store'])->name('tasks.add');
+    Route::put('tasks',[TaskController::class,'update'])->name('tasks.update');
     // Route::delete('clients',[ClientController::class,'destroy'])->name('client.destroy');
      Route::get('tasks-list',[TaskController::class,'show'])->name('tasks-show');
 

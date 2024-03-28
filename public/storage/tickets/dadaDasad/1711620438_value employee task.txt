@@ -1,0 +1,14 @@
+23-03-2024
+task
+ 
+ Completed->  1) Project  Employee  Clients Employee value is done dynamicly 
+		 2) Employee inside all work but Attance is not work
+
+
+
+  
+uncompleted ->  1)  Task is not done because task was not in present taskController model and routing working 
+
+		    2)Employee-> Attendanc-> add Attedance->Checkout time is error
+	   		3) Leeds ->add model
+			

@@ -14,6 +14,7 @@ class DashboardController extends Controller
         $title = 'Dashboard';
         $clients_count = Client::count();
         $employee_count = Employee::count();
+//$task_count = Task::count();
         $new_employee_count = Employee::where('created_at','DESC')->count();
         
         $project_count =Project::count();
@@ -23,4 +24,6 @@ class DashboardController extends Controller
             'title','clients_count','employee_count','project_count','new_employee_count'
         ));
     }
+
+    
 }

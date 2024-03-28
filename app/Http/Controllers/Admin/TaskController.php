@@ -5,6 +5,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 class TaskController extends Controller
 {
        /**
@@ -124,11 +125,11 @@ class TaskController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'image'=>'file|image|mimes:jpg,jpeg,gif',
+            'task_name' => 'required',
+            'task_description' => 'required',
+            'task_deadline' => 'required',
+            'task_priority' => 'required',
+            // 'image'=>'file|image|mimes:jpg,jpeg,gif',
       
         ]); 
         
@@ -142,12 +143,12 @@ class TaskController extends Controller
        $task =Task::findorfail($request->id);
         
         $task->update([
-             'firstname'=>$request->firstname,
-             'lastname'=>$request->lastname,
-             'email'=>$request->email,
-             'phone'=>$request->phone,
-             'image'=>$imageName,
-             'company'=>$request->company
+             'task_name'=>$request->task_name,
+             'task_description'=>$request->lastname,
+             'task_deadline'=>$request->email,
+             'task_priority'=>$request->phone,
+            //  'image'=>$imageName,
+            //  'company'=>$request->company
         ]);
         $notification = notify('task has been updated');
         return back()->with($notification);

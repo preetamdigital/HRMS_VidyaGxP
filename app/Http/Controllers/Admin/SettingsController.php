@@ -78,6 +78,14 @@ class SettingsController extends Controller
         ));
     }
 
+
+    // public function attendance()
+    // {
+    //     $settings = AttendanceSettings::first(); // Assuming you have a model for attendance settings
+    //     return view('attendance', compact('settings'));
+    // }
+
+
     public function updateAttendance(Request $request, AttendanceSettings $settings){
         $this->validate($request,[
             'checkin' => 'required',

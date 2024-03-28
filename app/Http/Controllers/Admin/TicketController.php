@@ -45,14 +45,32 @@ class TicketController extends Controller
             'status' => 'required'
         ]);
         $files = null;
-        if($request->hasFile('files')){
-            $files = array();
-            foreach($request->files as $file){
-                $fileName = time().'.'.$file->getClientOriginalExtension();
-                $file->move(public_path('storage/tickets/'.$request->subject), $fileName);
-                array_push($files,$fileName);
+        // if($request->hasFile('files')){
+        //     $files = array();
+        //     foreach($request->files as $file){
+        //         $fileName = time().'.'.$file->getClientOriginalExtension();
+        //         $file->move(public_path('storage/tickets/'.$request->subject), $fileName);
+        //         array_push($files,$fileName);
+        //     }
+        // }
+
+        if ($request->hasFile('files')) {
+            $files = [];
+            foreach ($request->file('files') as $file) {
+                if ($file->isValid()) {
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('storage/tickets/' . $request->subject), $fileName);
+                    $files[] = $fileName;
+                }
             }
         }
+        
+
+
+
+
+
+
         $uuid = IdGenerator::generate(['table' => 'tickets','field'=>'tk_id', 'length' => 9, 'prefix' =>'#TKT-']);
         Ticket::create([
             'subject'=> $request->subject,

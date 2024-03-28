@@ -46,59 +46,13 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<!-- <form method="POST" enctype="multipart/form-data" action="#">
-					@csrf
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">First Name <span class="text-danger">*</span></label>
-								<input class="form-control" name="firstname" type="text">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Last Name</label>
-								<input class="form-control" name="lastname" type="text">
-							</div>
-						</div>
-						
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Email <span class="text-danger">*</span></label>
-								<input class="form-control floating" name="email" type="email">
-							</div>
-						</div>
-						
-						<div class="col-md-6">  
-							<div class="form-group">
-								<label class="col-form-label">Client Picture<span class="text-danger">*</span></label>
-								<input class="form-control floating" name="image" type="file">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Phone </label>
-								<input class="form-control" name="phone" type="text">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Company Name</label>
-								<input class="form-control" name="company" type="text">
-							</div>
-						</div>
-					</div>
-					
-					<div class="submit-section">
-						<button class="btn btn-primary submit-btn">Submit</button>
-					</div>
-				</form> -->
+				
 
 
 
 
-				<form method="POST" action="#">
-    @csrf <!-- CSRF Protection -->
+	<form method="POST" action="#">
+    			@csrf <!-- CSRF Protection -->
     
     <!-- Task Name -->
     <div class="form-group">

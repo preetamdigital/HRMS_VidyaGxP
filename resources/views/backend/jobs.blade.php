@@ -42,7 +42,8 @@
 					@foreach ($jobs as $job)
 					<tr>
 						<td><a target="_blank" href="{{route('job-view',$job)}}">{{$job->title}}</a></td>
-						<td>{{$job->department->name ?? ''}}</td>
+						<!-- <td>{{$job->department->name ?? ''}}</td> -->
+						<td>{{ $job->department ? $job->department->name : 'No Department' }}</td>
 						<td>{{date_format(date_create($job->start_date),"d M, Y")}}</td>
 						<td>{{date_format(date_create($job->expire_date),"d M, Y")}}</td>
 						<td class="text-center">
