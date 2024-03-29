@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Task;
 use App\Models\Client;
 use App\Models\Employee;
 use App\Models\Project;
@@ -21,7 +22,7 @@ class DashboardController extends Controller
 
 
         return view('backend.dashboard',compact(
-            'title','clients_count','employee_count','project_count','new_employee_count'
+            'title','clients_count','employee_count','project_count','new_employee_count','task_count'
         ));
     }
 

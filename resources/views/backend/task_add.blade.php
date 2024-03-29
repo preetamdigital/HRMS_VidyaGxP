@@ -67,7 +67,7 @@
 								<input type="hidden" id="edit_id" name="id">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="col-form-label">First Name <span class="text-danger">*</span></label>
+										<label class="col-form-label">Task Name <span class="text-danger">*</span></label>
 										<input class="form-control edit_firstname" name="firstname" type="text">
 									</div>
 								</div>

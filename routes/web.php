@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OvertimeController;
 use App\Http\Controllers\Admin\GoalController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AssetController;
@@ -195,6 +196,12 @@ Route::group(['middleware'=>['auth']], function (){
     Route::get('task-list',[TaskController::class,'lists'])->name('task-list');
     Route::delete('tasks',[TaskController::class,'destroy'])->name('task.destroy');
     Route::put('tasks/update',[TaskController::class,'update'])->name('task.update');
+    
+    
+    Route::get('sales',[SaleController::class,'index'])->name('sale');
+
+
+
 
     Route::get('projects',[ProjectController::class,'index'])->name('projects');
     Route::get('projects/show/{name}',[ProjectController::class,'show'])->name('project.show');

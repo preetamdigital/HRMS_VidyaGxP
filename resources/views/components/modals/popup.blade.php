@@ -105,7 +105,7 @@
                         <div class="form-group">
                             <label>Description</label>
                             <textarea name="description" rows="4" class="form-control summernote" placeholder="Enter your message here"></textarea>
-                        </div>
+                        </div>  
                         <div class="form-group">
                             <label>Upload Files</label>
                             <input class="form-control" name="project_files[]" multiple type="file">

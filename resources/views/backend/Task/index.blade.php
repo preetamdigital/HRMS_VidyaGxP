@@ -100,18 +100,18 @@
 		$('.editbtn').on('click',function (){
 			$('#edit_task').modal('show');
 			var id = $(this).data('id');
-			var firstname = $(this).data('firstname');
-			var lastname = $(this).data('lastname');
-			var email = $(this).data('email');
-			var phone = $(this).data('phone');
-			var image = $(this).data('image');
+			var taskname = $(this).data('taskname');
+			var taskdescription = $(this).data('taskdescription');
+			var taskdeadline = $(this).data('taskdeadline');
+			var priority = $(this).data('priority');
 			var company = $(this).data('company');
+			var image = $(this).data('image');
 
 			$('#edit_id').val(id);
-			$('.edit_firstname').val(firstname);
-			$('.edit_lastname').val(lastname);
-			$('.edit_email').val(email);
-			$('.edit_phone').val(phone);
+			$('.edit_taskname').val(taskname);
+			$('.edit_taskdescription').val(taskdescription);
+			$('.edit_taskdeadline').val(taskdeadline);
+			$('.edit_taskpriority').val(taskpriority);
 			$('.edit_company').val(company);
 			$('.edit_image').val(image);
 		})
