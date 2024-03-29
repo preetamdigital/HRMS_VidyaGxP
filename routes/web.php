@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OvertimeController;
+use App\Http\Controllers\SalaryController;
+
 use App\Http\Controllers\Admin\GoalController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -188,6 +190,15 @@ Route::group(['middleware'=>['auth']], function (){
     Route::post('overtime',[OvertimeController::class,'store']);
     Route::put('overtime',[OvertimeController::class,'update']);
     Route::delete('overtime',[OvertimeController::class,'destroy']);
+
+    //Employee Salary 
+     //Route::get('employeesalry',[SalaryController::class,'create']->name('salary.create'));
+     Route::get('employeesalary', 'SalaryController@create')->name('salary.create');
+// Route::post('employeesalary/store', 'SalaryController@store')->name('salary.store');
+
+
+
+
 
 
     Route::get('tasks',[TaskController::class,'index'])->name('task');
