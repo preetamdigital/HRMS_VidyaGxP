@@ -13,7 +13,7 @@ use Doctrine\Deprecations\Deprecation;
 class BooleanType extends Type
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform)
     {
@@ -21,7 +21,7 @@ class BooleanType extends Type
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
@@ -29,13 +29,7 @@ class BooleanType extends Type
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param T $value
-     *
-     * @return (T is null ? null : bool)
-     *
-     * @template T
+     * {@inheritdoc}
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
@@ -43,7 +37,7 @@ class BooleanType extends Type
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -51,7 +45,7 @@ class BooleanType extends Type
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getBindingType()
     {

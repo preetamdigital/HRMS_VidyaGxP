@@ -12,7 +12,7 @@ use Doctrine\Deprecations\Deprecation;
 class DateTimeTzImmutableType extends DateTimeTzType
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -20,13 +20,7 @@ class DateTimeTzImmutableType extends DateTimeTzType
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @psalm-param T $value
-     *
-     * @return (T is null ? null : string)
-     *
-     * @template T
+     * {@inheritdoc}
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
@@ -46,13 +40,7 @@ class DateTimeTzImmutableType extends DateTimeTzType
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param T $value
-     *
-     * @return (T is null ? null : DateTimeImmutable)
-     *
-     * @template T
+     * {@inheritdoc}
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
@@ -74,7 +62,7 @@ class DateTimeTzImmutableType extends DateTimeTzType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @deprecated
      */

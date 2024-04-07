@@ -20,7 +20,7 @@ use function unserialize;
 class ObjectType extends Type
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform)
     {
@@ -28,11 +28,7 @@ class ObjectType extends Type
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param mixed $value
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
@@ -40,7 +36,7 @@ class ObjectType extends Type
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
@@ -62,7 +58,7 @@ class ObjectType extends Type
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -70,7 +66,7 @@ class ObjectType extends Type
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @deprecated
      */

@@ -21,14 +21,10 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
-use Doctrine\DBAL\Schema\DefaultSchemaManagerFactory;
-use Doctrine\DBAL\Schema\LegacySchemaManagerFactory;
-use Doctrine\DBAL\Schema\SchemaManagerFactory;
 use Doctrine\DBAL\SQL\Parser;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Deprecations\Deprecation;
 use LogicException;
-use SensitiveParameter;
 use Throwable;
 use Traversable;
 
@@ -54,24 +50,18 @@ class Connection
 {
     /**
      * Represents an array of ints to be expanded by Doctrine SQL parsing.
-     *
-     * @deprecated Use {@see ArrayParameterType::INTEGER} instead.
      */
-    public const PARAM_INT_ARRAY = ArrayParameterType::INTEGER;
+    public const PARAM_INT_ARRAY = ParameterType::INTEGER + self::ARRAY_PARAM_OFFSET;
 
     /**
      * Represents an array of strings to be expanded by Doctrine SQL parsing.
-     *
-     * @deprecated Use {@see ArrayParameterType::STRING} instead.
      */
-    public const PARAM_STR_ARRAY = ArrayParameterType::STRING;
+    public const PARAM_STR_ARRAY = ParameterType::STRING + self::ARRAY_PARAM_OFFSET;
 
     /**
      * Represents an array of ascii strings to be expanded by Doctrine SQL parsing.
-     *
-     * @deprecated Use {@see ArrayParameterType::ASCII} instead.
      */
-    public const PARAM_ASCII_STR_ARRAY = ArrayParameterType::ASCII;
+    public const PARAM_ASCII_STR_ARRAY = ParameterType::ASCII + self::ARRAY_PARAM_OFFSET;
 
     /**
      * Offset by which PARAM_* constants are detected as arrays of the param type.
@@ -83,7 +73,7 @@ class Connection
     /**
      * The wrapped driver connection.
      *
-     * @var DriverConnection|null
+     * @var \Doctrine\DBAL\Driver\Connection|null
      */
     protected $_conn;
 
@@ -163,8 +153,6 @@ class Connection
      */
     private bool $isRollbackOnly = false;
 
-    private SchemaManagerFactory $schemaManagerFactory;
-
     /**
      * Initializes a new instance of the Connection class.
      *
@@ -175,11 +163,11 @@ class Connection
      * @param Configuration|null  $config       The configuration, optional.
      * @param EventManager|null   $eventManager The event manager, optional.
      * @psalm-param Params $params
+     * @phpstan-param array<string,mixed> $params
      *
      * @throws Exception
      */
     public function __construct(
-        #[SensitiveParameter]
         array $params,
         Driver $driver,
         ?Configuration $config = null,
@@ -214,21 +202,6 @@ class Connection
         $this->_expr = $this->createExpressionBuilder();
 
         $this->autoCommit = $config->getAutoCommit();
-
-        $schemaManagerFactory = $config->getSchemaManagerFactory();
-        if ($schemaManagerFactory === null) {
-            Deprecation::trigger(
-                'doctrine/dbal',
-                'https://github.com/doctrine/dbal/issues/5812',
-                'Not configuring a schema manager factory is deprecated.'
-                    . ' Use %s which is going to be the default in DBAL 4.',
-                DefaultSchemaManagerFactory::class,
-            );
-
-            $schemaManagerFactory = new LegacySchemaManagerFactory();
-        }
-
-        $this->schemaManagerFactory = $schemaManagerFactory;
     }
 
     /**
@@ -356,8 +329,6 @@ class Connection
      *              the connection is already open.
      *
      * @throws Exception
-     *
-     * @psalm-assert !null $this->_conn
      */
     public function connect()
     {
@@ -438,10 +409,6 @@ class Connection
         // Explicit platform version requested (supersedes auto-detection).
         if (isset($this->params['serverVersion'])) {
             return $this->params['serverVersion'];
-        }
-
-        if (isset($this->params['primary']) && isset($this->params['primary']['serverVersion'])) {
-            return $this->params['primary']['serverVersion'];
         }
 
         // If not connected, we need to connect now to determine the platform version.
@@ -1055,7 +1022,7 @@ class Connection
     }
 
     /**
-     * Executes an, optionally parameterized, SQL query.
+     * Executes an, optionally parametrized, SQL query.
      *
      * If the query is parametrized, a prepared statement is used.
      * If an SQLLogger is configured, the execution is logged.
@@ -1127,7 +1094,7 @@ class Connection
         }
 
         $connectionParams = $this->params;
-        unset($connectionParams['platform'], $connectionParams['password'], $connectionParams['url']);
+        unset($connectionParams['platform']);
 
         [$cacheKey, $realKey] = $qcp->generateCacheKeys($sql, $params, $types, $connectionParams);
 
@@ -1651,6 +1618,8 @@ class Connection
 
         $this->connect();
 
+        assert($this->_conn !== null);
+
         return $this->_conn;
     }
 
@@ -1659,6 +1628,7 @@ class Connection
     {
         $this->connect();
 
+        assert($this->_conn !== null);
         if (! method_exists($this->_conn, 'getNativeConnection')) {
             throw new LogicException(sprintf(
                 'The driver connection %s does not support accessing the native connection.',
@@ -1677,7 +1647,10 @@ class Connection
      */
     public function createSchemaManager(): AbstractSchemaManager
     {
-        return $this->schemaManagerFactory->createSchemaManager($this);
+        return $this->_driver->getSchemaManager(
+            $this,
+            $this->getDatabasePlatform(),
+        );
     }
 
     /**
@@ -1916,9 +1889,9 @@ class Connection
 
         foreach ($types as $type) {
             if (
-                $type === ArrayParameterType::INTEGER
-                || $type === ArrayParameterType::STRING
-                || $type === ArrayParameterType::ASCII
+                $type === self::PARAM_INT_ARRAY
+                || $type === self::PARAM_STR_ARRAY
+                || $type === self::PARAM_ASCII_STR_ARRAY
             ) {
                 return true;
             }

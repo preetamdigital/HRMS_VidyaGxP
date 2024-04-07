@@ -8,7 +8,6 @@ use Doctrine\DBAL\Driver\API\ExceptionConverter;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\VersionAwarePlatformDriver;
 use Doctrine\Deprecations\Deprecation;
-use SensitiveParameter;
 
 abstract class AbstractDriverMiddleware implements VersionAwarePlatformDriver
 {
@@ -20,17 +19,15 @@ abstract class AbstractDriverMiddleware implements VersionAwarePlatformDriver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function connect(
-        #[SensitiveParameter]
-        array $params
-    ) {
+    public function connect(array $params)
+    {
         return $this->wrappedDriver->connect($params);
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getDatabasePlatform()
     {
@@ -38,7 +35,7 @@ abstract class AbstractDriverMiddleware implements VersionAwarePlatformDriver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @deprecated Use {@link AbstractPlatform::createSchemaManager()} instead.
      */
@@ -60,7 +57,7 @@ abstract class AbstractDriverMiddleware implements VersionAwarePlatformDriver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createDatabasePlatformForVersion($version)
     {
