@@ -193,9 +193,10 @@ Route::group(['middleware'=>['auth']], function (){
 
     //Employee Salary 
      //Route::get('employeesalry',[SalaryController::class,'create']->name('salary.create'));
-     Route::get('employeesalary', 'SalaryController@create')->name('salary.create');
+    //  Route::get('employeesalary', 'SalaryController@create')->name('salary.create');
 // Route::post('employeesalary/store', 'SalaryController@store')->name('salary.store');
 
+Route::get('employeessalary', [SalaryController::class, 'index'])->name('employeessalary');
 
 
 

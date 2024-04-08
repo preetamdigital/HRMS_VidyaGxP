@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->renameColumn('lastname', 'task_description');
-            $table->renameColumn('email', 'task_deadline');
-            $table->renameColumn('phone', 'task_priority');
+           // $table->renameColumn('lastname', 'task_description');
+            // $table->renameColumn('email', 'task_deadline');
+            // $table->renameColumn('phone', 'task_priority');
 
     });
     }
