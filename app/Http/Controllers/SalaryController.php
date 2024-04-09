@@ -10,7 +10,7 @@ class SalaryController extends Controller
 {
     public function index(){
         //$employees = Employee::all();
-        return view('backend.employees');
+        return view('backend.employeessalary');
     }
     public function store(Request $request)
     {

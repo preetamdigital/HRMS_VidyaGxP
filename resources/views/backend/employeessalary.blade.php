@@ -1,260 +1,186 @@
-@extends('layouts.backend')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="robots" content="noindex, nofollow">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>{{ucfirst(config('app.name'))}} - {{ucfirst($title="Employsalary")}}</title>
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{{!empty(app(App\Settings\ThemeSettings::class)->favicon) ? asset('storage/settings/'.app(App\Settings\ThemeSettings::class)->favicon):asset('assets/img/logovidyagxp.png')}}">
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
+		<!-- Lineawesome CSS -->
+        <link rel="stylesheet" href="{{asset('assets/css/line-awesome.min.css')}}">
+		<!-- Datetimepicker CSS -->
+		<link rel="stylesheet" href="{{asset('assets/css/bootstrap-datetimepicker.min.css')}}">
+		
+		<!-- Toastr Css -->
+		<link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
+		<!-- Toastify css -->
+		<link rel="stylesheet" href="{{asset('assets/plugins/toastify/src/toastify.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/plugins/select2/select2.min.css')}}">
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+		<!-- Page Css -->
+		{{-- @yield('styles') --}}
+		<link rel="stylesheet" href="{{asset('assets/plugins/select2/select2.min.css')}}">
 
-@section('styles')
-<link rel="stylesheet" href="{{asset('assets/plugins/select2/select2.min.css')}}">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+    </head>
+    <body>
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+		
+			<!-- Header -->
+            @include('includes.backend.header')
+			<!-- /Header -->
+			
+			<!-- Sidebar -->
+            @include('includes.backend.sidebar')
+			<!-- /Sidebar -->
+			
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+				@yield('content_one')
+				<!-- Page Content -->
+                <div class="content container-fluid">
+					
+					<!-- Page Header -->
+					<div class="page-header">
+						{{-- @yield('page-header') --}}
+						<div class="row align-items-center">
+							<div class="col">
+								<h3 class="page-title">Employee Salary</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+									<li class="breadcrumb-item active">Employee Salary</li>
+								</ul>
+							</div>
+							<div class="col-auto float-right ml-auto">
+								<a href="javascript:void(0)" class="btn add-btn" data-toggle="modal" data-target="#add_employeeSalary"><i class="fa fa-plus"></i> Add Employee Salary</a>
+								<div class="view-icons">
+									<a href="{{route('employees')}}" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
+									<a href="{{route('employees-list')}}" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					
+					@if ($errors->any())
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							@foreach($errors->all() as $error)
+							<strong>Error!</strong> {{$error}}.
+							@endforeach
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					@endif
+					@if(session('success'))
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<strong>Success! </strong>{{session('success')}}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					@endif
+					<!-- Content Starts -->
+						{{-- @yield('content') --}}
+{{-- ======================================add salary model======================= --}}
 
-@endsection
+<!-- resources/views/add-employee-salary.blade.php -->
+<div id="add_employeeSalary">
+	<!-- resources/views/add-employee-salary.blade.php -->
+<form method="POST" action="{{ url('/add-employee-salary') }}">
+    @csrf
+    <div class="form-group">
+        <label for="employee_id">Employee ID</label>
+        <input type="text" name="employee_id" class="form-control" id="employee_id" placeholder="Enter Employee ID">
+    </div>
+    <div class="form-group">
+        <label for="salary">Salary</label>
+        <input type="text" name="salary" class="form-control" id="salary" placeholder="Enter Salary">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
-@section('page-header')
-<div class="row align-items-center">
-	<div class="col">
-		<h3 class="page-title">Employee</h3>
-		<ul class="breadcrumb">
-			<li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-			<li class="breadcrumb-item active">Employee</li>
-		</ul>
-	</div>
-	<div class="col-auto float-right ml-auto">
-		<a href="javascript:void(0)" class="btn add-btn" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus"></i> Add Employee</a>
-		<div class="view-icons">
-			<a href="{{route('employees')}}" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-			<a href="{{route('employees-list')}}" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
-		</div>
-	</div>
 </div>
-@endsection
-
-@section('content')
 
 
-<div class="row staff-grid-row">
-	@if (!empty($employees->count()))
-		@foreach ($employees as $employee)
-			<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
-				<div class="profile-widget">
-					<div class="profile-img">
-						<a href="javascript:void(0)" class="avatar"><img alt="avatar" src="@if(!empty($employee->avatar)) {{asset('storage/employees/'.$employee->avatar)}} @else assets/img/profiles/default.jpg @endif"></a>
-					</div>
-					<div class="dropdown profile-action">
-						<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<a data-id="{{$employee->id}}" data-firstname="{{$employee->firstname}}" data-lastname="{{$employee->lastname}}" data-email="{{$employee->email}}" data-phone="{{$employee->phone}}" data-avatar="{{$employee->avatar}}" data-company="{{$employee->company}}" data-designation="{{$employee->designation->id}}" data-department="{{$employee->department->id}}" class="dropdown-item editbtn" href="javascript:void(0)" data-toggle="modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-						<a data-id="{{$employee->id}}" class="dropdown-item deletebtn" href="javascript:void(0)" data-toggle="modal" ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-					</div>
-					</div>
-					<h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="javascript:void(0)">{{$employee->firstname}} {{$employee->lastname}}</a></h4>
-					<h5 class="user-name m-t-10 mb-0 text-ellipsis"><a href="javascript:void(0)">{{$employee->designation->name}}</a></h5>
-
-				</div>
-			</div>
-		@endforeach
-		<x-modals.delete :route="'employee.destroy'" :title="'Employee'" />
-
-
-	@endif
-
-</div>
-
-<!-- Add Employee Modal -->
-<div id="add_employee" class="modal custom-modal fade" role="dialog">
-	<div class="modal-dialog modal-dialog-centered modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Add Employee</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form method="POST" action="{{route('employee.add')}}" enctype="multipart/form-data">
-					@csrf
-					<div class="row">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">First Name <span class="text-danger">*</span></label>
-								<input class="form-control" name="firstname" type="text">
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Last Name</label>
-								<input class="form-control" name="lastname" type="text">
-							</div>
-						</div>
-
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Email <span class="text-danger">*</span></label>
-								<input class="form-control" name="email" type="email">
-							</div>
-						</div>
-
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Phone </label>
-								<input class="form-control" name="phone" type="text">
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Company</label>
-								<input type="text" class="form-control" name="company">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Department <span class="text-danger">*</span></label>
-								<select name="department" class="select">
-									<option>Select Department</option>
-									@foreach ($departments as $department)
-										<option value="{{$department->id}}">{{$department->name}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Designation <span class="text-danger">*</span></label>
-								<select name="designation" class="select">
-									<option>Select Designation</option>
-									@foreach ($designations as $designation)
-										<option value="{{$designation->id}}">{{$designation->name}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Employee Picture<span class="text-danger">*</span></label>
-								<input class="form-control floating" name="avatar" type="file">
-							</div>
-						</div>
-					</div>
-
-					<div class="submit-section">
-						<button class="btn btn-primary submit-btn">Submit</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- /Add Employee Modal -->
-
-<!-- Edit Employee Modal -->
-<div id="edit_employee" class="modal custom-modal fade" role="dialog">
-	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Edit Employee</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form method="POST" action="{{route('employee.update')}}" enctype="multipart/form-data">
-					@csrf
-					@method('PUT')
-					<div class="row">
-						<input type="hidden" name="id" id="edit_id">
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">First Name <span class="text-danger">*</span></label>
-								<input class="form-control edit_firstname" name="firstname" type="text">
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Last Name</label>
-								<input class="form-control edit_lastname" name="lastname" type="text">
-							</div>
-						</div>
-
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Email <span class="text-danger">*</span></label>
-								<input class="form-control edit_email" name="email" type="email">
-							</div>
-						</div>
-
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Phone </label>
-								<input class="form-control edit_phone" name="phone" type="text">
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-form-label">Company</label>
-								<input type="text" class="form-control edit_company" name="company">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Department <span class="text-danger">*</span></label>
-								<select name="department" selected="selected" id="edit_department" class="select">
-									<option>Select Department</option>
-									@foreach ($departments as $department)
-										<option>{{$department->name}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Designation <span class="text-danger">*</span></label>
-								<select name="designation" selected="selected" class="select edit_designation">
-									<option>Select Designation</option>
-									@foreach ($designations as $designation)
-										<option>{{$designation->name}}</option>
-									@endforeach
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Employee Picture<span class="text-danger">*</span></label>
-								<input class="form-control floating edit_avatar" name="avatar" type="file">
-							</div>
-						</div>
-					</div>
-
-					<div class="submit-section">
-						<button class="btn btn-primary submit-btn">Submit</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- /Edit Employee Modal -->
-@endsection
-
-@section('scripts')
-<script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
-<script>
-	$(document).ready(function (){
-		$('.editbtn').on('click',function (){
-			$('#edit_employee').modal('show');
-			var id = $(this).data('id');
-			var firstname = $(this).data('firstname');
-			var lastname = $(this).data('lastname');
-			var email = $(this).data('email');
-			var phone = $(this).data('phone');
-			var avatar = $(this).data('avatar');
-			var company = $(this).data('company');
-			var designation = $(this).data('designation');
-			var department = $(this).data('department');
-			$('#edit_id').val(id);
-			$('.edit_firstname').val(firstname);
-			$('.edit_lastname').val(lastname);
-			$('.edit_email').val(email);
-			$('.edit_phone').val(phone);
-			$('.edit_company').val(company);
-			$('.edit_designation').val(designation);
-			$('#edit_department').val(department).attr('selected');
-			$('.edit_avatar').attr('src',avatar);
-		})
-	})
-</script>
-@endsection
+					<!-- /Content End -->
+					
+                </div>
+				<!-- /Page Content -->
+				
+            </div>
+			<!-- /Page Wrapper -->
+        </div>
+		<!-- /Main Wrapper -->
+		
+		
+    </body>
+	
+	<!-- jQuery -->
+	<script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+	<!-- Bootstrap Core JS -->
+	<script src="{{asset('assets/js/popper.min.js')}}"></script>
+	<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+	<!-- Slimscroll JS -->
+	<script src="{{asset('assets/js/jquery.slimscroll.min.js')}}"></script>
+	<!-- Datetimepicker JS -->
+	<script src="{{asset('assets/js/moment.min.js')}}"></script>
+	<script src="{{asset('assets/js/bootstrap-datetimepicker.min.js')}}"></script>
+	<!-- Ck Editor -->
+	<script src="{{asset('assets/plugins/ckeditor/ckeditor.js')}}"></script>
+	<!-- Toastr JS -->
+	<script src="{{asset('assets/plugins/toastr/toastr.min.js')}}"></script>
+	<!-- Toastify JS -->
+	<script src="{{asset('assets/plugins/toastify/src/toastify.js')}}"></script>
+	<script src="{{asset('assets/plugins/select2/select2.min.js')}}"></script>
+	<!-- Custom JS -->
+	<script src="{{asset('assets/js/app.js')}}"></script>
+	<script>
+		$(document).ready(function (){
+			$('body').on('click','.deletebtn',function (){
+				$('#delete_modal').modal('show');
+				var id = $(this).data('id');
+				$('#delete_id').val(id);
+			});
+			$('.alert').delay(2000).fadeOut();
+            @if(Session::has('message'))
+                var type = "{{ Session::get('alert-type', '') }}";
+                switch (type) {
+                    case 'info':
+                        toastr.info("{{ Session::get('message') }}");
+                        break;
+                    
+                    case 'success':
+                        toastr.success("{{ Session::get('message') }}");
+                        break;
+                    
+                    case 'warning':
+                        toastr.warning("{{ Session::get('message') }}");
+                        break;
+                    
+                    case 'error':
+                        toastr.error("{{ Session::get('message') }}");
+                        break;
+                    
+                    case 'danger':
+                        toastr.error("{{ Session::get('message') }}");
+                        break;
+                    
+                }
+            @endif
+		});
+	</script>
+	@yield('scripts')
+</html>
