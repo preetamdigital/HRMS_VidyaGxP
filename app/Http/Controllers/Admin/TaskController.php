@@ -64,8 +64,10 @@ class TaskController extends Controller
         $request->validate([
             'task_name'=>'required',
             'task_description'=>'required',
-            'task_deadline'=>'required',
+            //'task_deadline'=>'required',
+            'task_deadline' => 'required|date|after_or_equal:'.now()->addDays(10)->format('Y-m-d'),
             'task_priority'=>'required',
+            
       
         ]); 
         // $files = null;
@@ -89,8 +91,8 @@ class TaskController extends Controller
             'task_description'=>$request->task_description,
             'task_deadline'=>$request->task_deadline,
             'task_priority'=>$request->task_priority,
-            // 'company'=>$request->company,
-            // 'image' => $files,
+            'image'=>$imageName,
+     
                 ]);
                 return back()->with('success','Task has been added successfully!!!');
     }
@@ -102,7 +104,7 @@ class TaskController extends Controller
      */
     public function show()
     {
-       $title = 'view project';
+       $title = 'view Task';
         // $project = Task::where('name','=',$project_name)->firstOrFail();
         // return view('backend.tasks.show',compact(
         //     'title','project'
@@ -124,31 +126,36 @@ class TaskController extends Controller
      */
     public function update(Request $request)
     {
+        //dd($request->all());
         $request->validate([
             'task_name' => 'required',
             'task_description' => 'required',
-            'task_deadline' => 'required',
-            'task_priority' => 'required',
-            // 'image'=>'file|image|mimes:jpg,jpeg,gif',
+             'task_deadline' => 'required',
+             //'task_priority' => 'required',
+             'image'=>'file|image|mimes:jpg,jpeg,gif',
       
         ]); 
         
-        
 
+
+
+    
         $imageName = null;
-        if($request->image != null){
+        if($request->hasFile('image')){
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('storage/tasks'), $imageName);
         }
-       $task =Task::findorfail($request->id);
         
+        $task =Task::find($request->id);
+       
+
         $task->update([
-             'task_name'=>$request->task_name,
-             'task_description'=>$request->lastname,
-             'task_deadline'=>$request->email,
-             'task_priority'=>$request->phone,
-            //  'image'=>$imageName,
-            //  'company'=>$request->company
+            'task_name'=>$request->task_name,
+            'task_description'=>$request->task_description,
+            'task_deadline'=>$request->task_deadline,
+            'task_priority'=>$request->task_priority,
+            'image'=>$imageName,
+     //  'company'=>$request->company
         ]);
         $notification = notify('task has been updated');
         return back()->with($notification);
@@ -162,9 +169,9 @@ class TaskController extends Controller
      */
     public function destroy(Request $request)
     {
-        Task::findOrfail($request->id)->delete();
-        $notification = notify('project has been added');
-        return back()->with($notification);
+        $task=Task::find($request->id);
+        $task->delete();
+        return back()->with('success',"Task has been deleted successfully!!");
     }
 
 }

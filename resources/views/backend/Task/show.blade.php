@@ -15,10 +15,10 @@
 		</ul>
 	</div>
 	<div class="col-auto float-right ml-auto">
-		<a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_client"><i class="fa fa-plus"></i> Add Client</a>
+		<a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_task"><i class="fa fa-plus"></i>Add Task</a>
 		<div class="view-icons">
-			<a href="{{route('clients')}}" class="grid-view btn btn-link {{route_is('clients') ? 'active' : '' }}"><i class="fa fa-th"></i></a>
-			<a href="{{route('clients-list')}}" class="list-view btn btn-link {{route_is('show') ? 'active' : '' }}"><i class="fa fa-bars"></i></a>
+			<a href="{{route('tasks-show')}}" class="grid-view btn btn-link {{route_is('tasks-show') ? 'active' : '' }}"><i class="fa fa-th"></i></a>
+			<a href="{{route('tasks-show')}}" class="list-view btn btn-link {{route_is('tasks-show') ? 'active' : '' }}"><i class="fa fa-bars"></i></a>
 		</div>
 	</div>
 </div>
@@ -35,7 +35,7 @@
 						<th>Task Description</th>
 						<th>Task Deadline</th>
 						<th>Task Priority</th>
-						<!-- <th>Mobile</th> -->
+						<th>Image</th> 
 						<th class="text-right">Action</th>
 					</tr>
 				</thead>
@@ -43,95 +43,90 @@
 					@if (!empty($tasks->count()))
 						@foreach ($tasks as $task)
 						<tr>
-							<td>
+							{{-- <td>
 								<h2 class="table-avatar">
 									<a href="client-profile.html" class="avatar"><img src="assets/img/profiles/avatar-19.jpg" alt=""></a>
 									<a href="client-profile.html">Global Technologies</a>
 								</h2>
-							</td>
-							<td>CLT-{{$task->id}}</td>
+							</td> --}}
+							{{-- <td>{{$task->id}}</td> --}}
 							<td>{{$task->task_name}}</td> 
                             <td>{{$task->task_description}}</td>
 							<td>{{$task->task_deadline}}</td>
 							<td>{{$task->task_priority}}</td>
-							
+							<td>{{$task->image}}</td>
 							<td class="text-right">
 								<div class="dropdown dropdown-action">
 									<a href="javascript:void(0)" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 									<div class="dropdown-menu dropdown-menu-right">
-										<a data-id="{{$task->id}}" data-firstname="{{$task->task_name}}" data-lastname="{{$task->lastname}}" data-email="{{$task->email}}" data-phone="{{$task->phone}}" data-avatar="{{$task->avatar}}" data-company="{{$task->company}}" class="dropdown-item editbtn" href="javascript:void(0)" data-toggle="modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+										<a data-id="{{$task->id}}" data-task_name="{{$task->task_name}}" data-task_description="{{$task->task_description}}" data-task_deadline="{{$task->task_deadline}}" data-task_priority="{{$task->task_priority}}" data-image="{{$task->image}}" class="dropdown-item editbtn" href="javascript:void(0)" data-toggle="modal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
 										<a data-id="{{$task->id}}" class="dropdown-item deletebtn" href="javascript:void(0)" data-toggle="modal"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 									</div>
 								</div>
 							</td>
 						</tr>
 						@endforeach
-						<!-- <x-modals.delete :route="'client.destroy'" :title="'Client'" /> -->
+							<x-modals.delete :route="'task.destroy'" :title="'Task'" /> 
 						<!-- Edit Client Modal -->
-						<div id="edit_client" class="modal custom-modal fade" role="dialog">
-							<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title">Edit Client</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<form method="POST" enctype="multipart/form-data" action="#">
-											@csrf
-											@method("PUT")
-											<div class="row">
-												<input type="hidden" id="edit_id" name="id">
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label">First Name <span class="text-danger">*</span></label>
-														<input class="form-control edit_firstname" name="firstname" type="text">
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label">Last Name</label>
-														<input class="form-control edit_lastname" name="lastname" type="text">
-													</div>
-												</div>
+					<div id="edit_client" class="modal custom-modal fade" role="dialog">
+						<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Edit Client</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form method="POST" enctype="multipart/form-data" action="{{route('task.update')}}">
+										@csrf
+										@method("PUT")
+										<!-- Task Name -->
+										<input type="hidden" id="edit_id" name="id">
 												
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label">Email <span class="text-danger">*</span></label>
-														<input class="form-control floating edit_email" name="email" type="email">
-													</div>
-												</div>
-												
-												<div class="col-md-6">  
-													<div class="form-group">
-														<label class="col-form-label">Client Picture<span class="text-danger">*</span></label>
-														<input class="form-control floating edit_avatar" name="avatar" type="file">
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label">Phone </label>
-														<input class="form-control edit_phone" name="phone" type="text">
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label">Company Name</label>
-														<input class="form-control edit_company" name="company" type="text">
-													</div>
-												</div>
-											</div>
-											
-											<div class="submit-section">
-												<button class="btn btn-primary submit-btn">Submit</button>
-											</div>
-										</form>
-									</div>
+										<div class="form-group">
+											<label for="task_name">Task Name:</label>
+											<input type="text" name="task_name" id="task_name" class="form-control edit_task_name" placeholder="Enter task name" required>
+										</div>
+										
+										<!-- Task Description -->
+										<div class="form-group">
+											<label for="task_description">Task Description:</label>
+											<textarea name="task_description" id="task_description" class="form-control edit_task_description" rows="3" placeholder="Enter task description"></textarea>
+										</div>
+										
+										<!-- Task Deadline -->
+										<div class="form-group">
+											<label for="task_deadline">Task Deadline:</label>
+											<input type="date" name="task_deadline" id="task_deadline" class="form-control edit_task_deadline" required>
+										</div>
+										
+										<!-- Task Priority -->
+										<div class="form-group">
+											<label for="task_priority">Task Priority:</label>
+											<select name="task_priority" id="task_priority" class="form-control edit_task_priority" required>
+												<option value="low">Low</option>
+												<option value="medium">Medium</option>
+												<option value="high">High</option>
+											</select>
+										</div>
+
+
+														
+										<div class="form-group">
+										<label class="col-form-label">image</span></label>
+										<input class="form-control floating edit_image" name="image" type="file">
+										</div>
+																				
+										<!-- Submit Button -->
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</form>
+
 								</div>
 							</div>
 						</div>
-						<!-- /Edit Client Modal -->
+					</div>
+					<!-- /Edit Client Modal -->
 					@endif					
 				</tbody>
 			</table>
@@ -139,69 +134,65 @@
 	</div>
 </div>
 
+{{-- MODELS --}}
 <!-- Add Client Modal -->
-<div id="add_client" class="modal custom-modal fade" role="dialog">
+<div id="add_task" class="modal custom-modal fade" role="dialog">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Add Client</h5>
+				<h5 class="modal-title">Add Task</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<form method="POST" enctype="multipart/form-data" action="{{route('client.add')}}">
-					@csrf
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">First Name <span class="text-danger">*</span></label>
-								<input class="form-control" name="firstname" type="text">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Last Name</label>
-								<input class="form-control" name="lastname" type="text">
-							</div>
+
+					<form method="POST" enctype="multipart/form-data" action="{{route('tasks.add')}}">
+										@csrf
+						<!-- Task Name -->
+						<div class="form-group">
+							<label for="task_name">Task Name:</label>
+							<input type="text" name="task_name" id="task_name" class="form-control" placeholder="Enter task name" required>
 						</div>
 						
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Email <span class="text-danger">*</span></label>
-								<input class="form-control floating" name="email" type="email">
-							</div>
+						<!-- Task Description -->
+						<div class="form-group">
+							<label for="task_description">Task Description:</label>
+							<textarea name="task_description" id="task_description" class="form-control" rows="3" placeholder="Enter task description"></textarea>
 						</div>
 						
-						<div class="col-md-6">  
-							<div class="form-group">
-								<label class="col-form-label">Client Picture<span class="text-danger">*</span></label>
-								<input class="form-control floating" name="avatar" type="file">
-							</div>
+						<!-- Task Deadline -->
+						<div class="form-group">
+							<label for="task_deadline">Task Deadline:</label>
+							<input type="date" name="task_deadline" id="task_deadline" class="form-control" required>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Phone </label>
-								<input class="form-control" name="phone" type="text">
-							</div>
+						
+						<!-- Task Priority -->
+						<div class="form-group">
+							<label for="task_priority">Task Priority:</label>
+							<select name="task_priority" id="task_priority" class="form-control" required>
+								<option value="low">Low</option>
+								<option value="medium">Medium</option>
+								<option value="high">High</option>
+							</select>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="col-form-label">Company Name</label>
-								<input class="form-control" name="company" type="text">
-							</div>
+
+
+										
+						<div class="form-group">
+						<label class="col-form-label">image</span></label>
+						<input class="form-control floating edit_image" name="image" type="file">
 						</div>
-					</div>
-					
-					<div class="submit-section">
-						<button class="btn btn-primary submit-btn">Submit</button>
-					</div>
-				</form>
+																
+						<!-- Submit Button -->
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+
 			</div>
 		</div>
 	</div>
 </div>
-<!-- /Add Client Modal -->
+{{-- end task mode --}}
 @endsection
 
 @section('scripts')
@@ -213,20 +204,20 @@
 		$('.editbtn').on('click',function (){
 			$('#edit_client').modal('show');
 			var id = $(this).data('id');
-			var firstname = $(this).data('firstname');
-			var lastname = $(this).data('lastname');
-			var email = $(this).data('email');
-			var phone = $(this).data('phone');
-			var avatar = $(this).data('avatar');
-			var company = $(this).data('company');
+			var firstname = $(this).data('task_name');
+			var lastname = $(this).data('task_description');
+			var email = $(this).data('task_deadline');
+			var phone = $(this).data('task_priority');
+			var avatar = $(this).data('image');
+			//var company = $(this).data('company');
 
 			$('#edit_id').val(id);
-			$('.edit_firstname').val(firstname);
-			$('.edit_lastname').val(lastname);
-			$('.edit_email').val(email);
-			$('.edit_phone').val(phone);
-			$('.edit_avatar').val(avatar);
-			$('.edit_company').val(company);
+			$('.edit_task_name').val(firstname);
+			$('.edit_task_description').val(lastname);
+			$('.edit_task_deadline').val(email);
+			$('.edit_task_priority').val(phone);
+			$('.edit_image').val(avatar);
+			//$('.edit_company').val(company);
 		})
 	})
 </script>

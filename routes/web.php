@@ -157,18 +157,6 @@ Route::group(['middleware'=>['auth']], function (){
     Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
     
 
-
-
-
-
-
-    //Task controller
-    Route::post('tasks',[TaskController::class,'index'])->name('tasks');
-     Route::post('tasks',[TaskController::class,'store'])->name('tasks.add');
-    Route::put('tasks',[TaskController::class,'update'])->name('tasks.update');
-    // Route::delete('clients',[ClientController::class,'destroy'])->name('client.destroy');
-     Route::get('tasks-list',[TaskController::class,'show'])->name('tasks-show');
-
     Route::get('employees',[EmployeeController::class,'index'])->name('employees');
     Route::post('employees',[EmployeeController::class,'store'])->name('employee.add');
     Route::get('employees-list',[EmployeeController::class,'list'])->name('employees-list');
@@ -199,12 +187,15 @@ Route::group(['middleware'=>['auth']], function (){
 
 
 
-
-
-    Route::get('tasks',[TaskController::class,'index'])->name('task');
-    Route::post('tasks/add',[TaskController::class,'store'])->name('task.add');
-    Route::get('task-list',[TaskController::class,'lists'])->name('task-list');
-    Route::delete('tasks',[TaskController::class,'destroy'])->name('task.destroy');
+       // //Task controller
+    Route::get('tasks',[TaskController::class,'index'])->name('tasks');
+    Route::post('tasks-add',[TaskController::class,'store'])->name('tasks.add');
+    Route::get('tasks-list',[TaskController::class,'show'])->name('tasks-show');
+    //Route::get('tasks',[TaskController::class,'index'])->name('tasks');
+    //Route::post('tasks/add',[TaskController::class,'store'])->name('task.add');
+   // Route::get('task-list',[TaskController::class,'lists'])->name('task-list');
+    Route::delete('tasks/delete',[TaskController::class,'destroy'])->name('task.destroy');
+   // Route::put('clients',[ClientController::class,'update'])->name('client.update');
     Route::put('tasks/update',[TaskController::class,'update'])->name('task.update');
 
     Route::get('projects',[ProjectController::class,'index'])->name('projects');
