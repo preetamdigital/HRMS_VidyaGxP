@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('employees.store') }}">
+<form method="post" action="{{ route('salary.store') }}">
     @csrf
     <div class="form-group">
         <label for="name">Name</label>

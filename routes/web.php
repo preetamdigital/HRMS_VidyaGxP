@@ -192,9 +192,9 @@ Route::group(['middleware'=>['auth']], function (){
     Route::delete('overtime',[OvertimeController::class,'destroy']);
 
     //Employee Salary 
-     //Route::get('employeesalry',[SalaryController::class,'create']->name('salary.create'));
-     Route::get('employeesalary', 'SalaryController@create')->name('salary.create');
-// Route::post('employeesalary/store', 'SalaryController@store')->name('salary.store');
+     Route::get('employeesalary',[SalaryController::class,'create'])->name('salary.create');
+    //  Route::get('employeesalary', 'SalaryController@create')->name('salary.create');
+Route::post('employeesalary/store', 'SalaryController@store')->name('salary.store');
 
 
 
