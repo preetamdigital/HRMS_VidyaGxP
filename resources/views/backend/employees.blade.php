@@ -195,7 +195,7 @@
 								<select name="department" selected="selected" id="edit_department" class="select">
 									<option>Select Department</option>
 									@foreach ($departments as $department)
-										<option>{{$department->name}}</option>
+										<option  value="{{$department->id}}">{{$department->name}}</option>
 									@endforeach
 								</select>
 							</div>
@@ -203,10 +203,10 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Designation <span class="text-danger">*</span></label>
-								<select name="designation" selected="selected" class="select edit_designation">
+								<select name="designation" selected="selected" id="edit_designation" class="select edit_designation">
 									<option>Select Designation</option>
 									@foreach ($designations as $designation)
-										<option>{{$designation->name}}</option>
+										<option value="{{$designation->id}}">{{$designation->name}}</option>
 									@endforeach
 								</select>
 							</div>
@@ -245,6 +245,7 @@
 			var company = $(this).data('company');
 			var designation = $(this).data('designation');
 			var department = $(this).data('department');
+			console.log(department,department.id,'department')
 			$('#edit_id').val(id);
 			$('.edit_firstname').val(firstname);
 			$('.edit_lastname').val(lastname);
