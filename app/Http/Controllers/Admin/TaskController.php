@@ -163,7 +163,7 @@ class TaskController extends Controller
     public function destroy(Request $request)
     {
         Task::findOrfail($request->id)->delete();
-        $notification = notify('project has been added');
+        $notification = notify('Task Deleted');
         return back()->with($notification);
     }
 
