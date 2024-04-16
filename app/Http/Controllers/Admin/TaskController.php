@@ -17,7 +17,7 @@ class TaskController extends Controller
     {
         $title = 'TaskHRMS';
         $tasks = Task::latest()->get();
-        return view('backend.Task.index',compact(
+        return view('backend.task_add',compact(
             'title','tasks'
         ));
     }
@@ -33,7 +33,7 @@ class TaskController extends Controller
     {
         $title = 'projects';
         $tasks = Task::get();
-        return view('backend.Task.task-list',compact(
+        return view('backend.task_list',compact(
             'title','tasks'
         ));
     }
